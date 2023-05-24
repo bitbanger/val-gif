@@ -8,16 +8,20 @@ GAME_SECS=3
 CONSOLE_SPEEDUP=10
 GAME_SPEEDUP=1
 
+# The number of extra seconds to "linger" on each
+# segment *after* the speedup.
+CONSOLE_LINGER=2
+GAME_LINGER=0
+
 # These times are used to trim the final, sped-up videos,
 # since ffmpeg seems to leave the entire video in there.
-# The added constants differ because I want different
-# "lingering" times for each segment.
-CONSOLE_TIME=$(((${CONSOLE_SECS} / ${CONSOLE_SPEEDUP}) + 2))
-GAME_TIME=$(((${GAME_SECS} / ${GAME_SPEEDUP}) + 0))
+CONSOLE_TIME=$(((${CONSOLE_SECS} / ${CONSOLE_SPEEDUP}) + ${CONSOLE_LINGER}))
+GAME_TIME=$(((${GAME_SECS} / ${GAME_SPEEDUP}) + ${GAME_LINGER}))
 
 # Clean up
 mv VAL-overcooked-edited.mp4 VAL-overcooked-edited.other
 rm *.mp4 2>/dev/null
+rm val.gif 2>/dev/null
 mv VAL-overcooked-edited.other VAL-overcooked-edited.mp4
 
 # Split the original video into the console and game
